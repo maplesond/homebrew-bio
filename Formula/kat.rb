@@ -16,10 +16,13 @@ class Kat < Formula
 
   needs :cxx11
 
-  depends_on "python"
-  depends_on "numpy"
-  depends_on "scipy"
+  depends_on "autoconf" => :build
+  depends_on "automake" => :build
+
   depends_on "matplotlib"
+  #depends_on "numpy"  # Already included in matplotlib and scipy
+  #depends_on "python" # Already included in matplotlib and scipy
+  depends_on "scipy"
 
   resource "tabulate" do
     url "https://files.pythonhosted.org/packages/1c/a1/3367581782ce79b727954f7aa5d29e6a439dc2490a9ac0e7ea0a7115435d/tabulate-0.7.7.tar.gz"
@@ -40,10 +43,12 @@ class Kat < Formula
     system "./autogen.sh"
     system "./configure",
       "--disable-silent-rules",
+      "--disable-dependency-tracking",
       "--disable-pykat-install",
       "--prefix=#{prefix}"
     system "make"
     system "make", "install"
+	system "cd scripts && python setup.py install"
   end
 
   test do

@@ -47,7 +47,9 @@ class Kat < Formula
       "--prefix=#{prefix}"
     system "make"
     system "make", "install"
-    system "cd", "scripts" { system "python3", *Language::Python.setup_install_args(prefix) }
+    cd scripts do
+      system "python3", *Language::Python.setup_install_args(prefix)
+    end
   end
 
   test do

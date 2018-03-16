@@ -18,10 +18,9 @@ class Kat < Formula
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
+  depends_on "libtool" => :build
 
   depends_on "matplotlib"
-  #depends_on "numpy"  # Already included in matplotlib and scipy
-  #depends_on "python" # Already included in matplotlib and scipy
   depends_on "scipy"
 
   resource "tabulate" do
@@ -48,7 +47,7 @@ class Kat < Formula
       "--prefix=#{prefix}"
     system "make"
     system "make", "install"
-	system "cd scripts && python setup.py install"
+    system "cd scripts && python3 setup.py install"
   end
 
   test do
